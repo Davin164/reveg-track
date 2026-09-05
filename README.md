@@ -185,16 +185,7 @@ Image terbaru dapat ditarik dengan:
 docker pull ghcr.io/username/reveg-track:latest
 ```
 
----
-
-## 🏆 Kriteria Penilaian GDGoC UNSRI
-
-Proyek ini telah memenuhi seluruh 100 poin persyaratan *Final Project Backend Division*:
-
-- ✅ **Aplikasi Backend (75 Poin):** Menggunakan pola *Service-Repository*, mengeliminasi *N+1 query* melalui Eager Loading, perlindungan CSRF/Bcrypt, tidak melakukan *hardcode* pada *secrets*, dan pengimplementasian *Clean Code*.
-- ✅ **Dockerfile (10 Poin):** Menyertakan `Dockerfile` biasa, `Dockerfile.dev`, `docker-compose.yml`, dan `.dockerignore`.
-- ✅ **Workflow CI/CD (10 Poin):** Otomatisasi proses build & push ke `ghcr.io` menggunakan *GitHub Actions*.
-- ✅ **Commit History (5 Poin):** Sejarah pengerjaan yang bertahap dan pesan *commit* yang bermakna.
+By: Davin Backend Dev - GDGoC Unsri
 
 <br>
 
