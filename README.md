@@ -12,7 +12,7 @@
   </p>
 
   <p>
-    <strong>Platform Monitoring Reklamasi Tambang terintegrasi AI untuk PT Bukit Asam Tbk & PAMA</strong><br />
+    <strong>Platform Monitoring Reklamasi Tambang terintegrasi AI untuk PT *** & ***</strong><br />
   </p>
 
   <p>
@@ -39,7 +39,7 @@ Project ini sepenuhnya **dockerized** dan sudah terintegrasi dengan pipeline **C
 - 🔐 **Autentikasi Aman** — Login sistem dilindungi oleh enkripsi *Bcrypt* dengan pembagian akses (*Role-Based Access Control*) untuk Admin, Manager, dan Surveyor.
 - 📸 **Validasi Vision AI (Gemini)** — Surveyor lapangan mengunggah foto vegetasi, lalu AI akan menganalisis kondisi daun, batang, dan lingkungan secara *real-time* untuk memberikan *Health Score* dan mendeteksi anomali (seperti kebakaran atau manipulasi gambar).
 - 🌍 **Portal Informasi Publik (Tanpa Login)** — Warga dapat melihat transparansi data reklamasi, total area, *survival rate*, dan galeri progres foto secara langsung.
-- 📢 **Sistem Pengaduan Warga** — Masyarakat sekitar tambang dapat melapor/mengirim keluhan langsung lewat portal, yang kemudian dapat direspon oleh Admin PT BA. 
+- 📢 **Sistem Pengaduan Warga** — Masyarakat sekitar tambang dapat melapor/mengirim keluhan langsung lewat portal, yang kemudian dapat direspon oleh Admin PT ***. 
 - 📊 **Dashboard Analitik & Tren** — Visualisasi data (menggunakan Chart.js) yang menampilkan grafik tingkat keberhasilan tumbuh (*survival rate*) dan tren pemantauan bulanan.
 - 🌳 **Manajemen Lahan & Plot** — Pengelompokan area tambang (Sites) dan titik penanaman (Plots) yang terstruktur.
 - 🛡️ **Keamanan & Optimasi** — Mencegah *N+1 Query Problem* dengan Eager Loading, menggunakan `DB::transaction` untuk menjaga integritas data, serta validasi input yang ketat lewat Form Requests.
@@ -163,8 +163,8 @@ Gunakan kredensial berikut untuk masuk ke sistem *internal dashboard* (Role `Adm
 
 | Role / Nama Akun | Email | Password |
 |---|---|---|
-| **Administrator PT BA** | `admin@reveg.test` | `password123` |
-| **Manager Reklamasi PAMA** | `manager@reveg.test` | `password123` |
+| **Administrator PT *** | `admin@reveg.test` | `password123` |
+| **Manager Reklamasi ***** | `manager@reveg.test` | `password123` |
 | **Surveyor Lapangan** | `surveyor@reveg.test` | `password123` |
 
 Akses **Portal Publik Warga** dapat dilihat langsung tanpa proses login melalui rute halaman utama `/`.
