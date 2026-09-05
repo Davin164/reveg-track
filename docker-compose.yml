@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ghcr.io/davin164/reveg-track:latest
+    ports:
+      - "80:80"
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - DB_CONNECTION=pgsql
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_DATABASE=reveg
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=${DB_PASSWORD:-secret}
+    depends_on:
+      - db
+    restart: unless-stopped
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: reveg
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+    volumes:
+      - reveg-prod-db:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  reveg-prod-db:
