@@ -42,15 +42,15 @@
                 @csrf
                 <div>
                     <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Alamat Email</label>
-                    <input type="email" id="email" name="email" value="{{ old('email', 'admin@reveg.test') }}" required
+                    <input type="email" id="email" name="email" value="{{ old('email') }}" required
                            class="w-full px-4 py-3 bg-slate-950/80 border border-slate-700/80 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition">
                 </div>
 
                 <div>
                     <div class="flex items-center justify-between mb-2">
-                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">Password (Bcrypt Encrypted)</label>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">Password</label>
                     </div>
-                    <input type="password" id="password" name="password" value="password123" required
+                    <input type="password" id="password" name="password" required
                            class="w-full px-4 py-3 bg-slate-950/80 border border-slate-700/80 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition">
                 </div>
 
@@ -67,24 +67,7 @@
                 </button>
             </form>
 
-            <!-- Quick Demo Credentials Selector -->
-            <div class="mt-8 pt-6 border-t border-slate-800">
-                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 text-center">Akun Demo (Klik untuk Isi):</p>
-                <div class="grid grid-cols-3 gap-2">
-                    <button type="button" onclick="fillCredentials('admin@reveg.test')"
-                            class="py-2 px-2 text-xs bg-slate-800/80 hover:bg-slate-700 border border-slate-700/60 rounded-lg text-emerald-300 font-medium text-center transition cursor-pointer">
-                        🛡️ Admin
-                    </button>
-                    <button type="button" onclick="fillCredentials('manager@reveg.test')"
-                            class="py-2 px-2 text-xs bg-slate-800/80 hover:bg-slate-700 border border-slate-700/60 rounded-lg text-blue-300 font-medium text-center transition cursor-pointer">
-                        👔 Manager
-                    </button>
-                    <button type="button" onclick="fillCredentials('surveyor@reveg.test')"
-                            class="py-2 px-2 text-xs bg-slate-800/80 hover:bg-slate-700 border border-slate-700/60 rounded-lg text-amber-300 font-medium text-center transition cursor-pointer">
-                        🌿 Surveyor
-                    </button>
-                </div>
-            </div>
+
         </div>
 
         <!-- Portal Public Link -->
@@ -98,11 +81,6 @@
         </div>
     </div>
 
-    <script>
-        function fillCredentials(email) {
-            document.getElementById('email').value = email;
-            document.getElementById('password').value = 'password123';
-        }
-    </script>
+
 </body>
 </html>

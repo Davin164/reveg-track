@@ -17,6 +17,7 @@ Route::get('/', function () {
     return redirect()->route('public.portal');
 });
 Route::get('/portal', [PublicPortalController::class, 'index'])->name('public.portal');
+Route::get('/portal/gallery', [PublicPortalController::class, 'gallery'])->name('public.gallery');
 Route::get('/portal/sites/{id}', [PublicPortalController::class, 'siteDetail'])->name('public.siteDetail');
 Route::post('/complaints', [ComplaintController::class, 'store'])->name('complaints.store');
 

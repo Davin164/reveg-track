@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 class GeminiService
 {
     protected ?string $apiKey;
-    protected string $model = 'gemini-1.5-flash';
+    protected string $model = 'gemini-3.6-flash';
 
     public function __construct()
     {
@@ -44,7 +44,7 @@ class GeminiService
                 . 'Wajib respon HANYA dalam format JSON valid tanpa markdown: '
                 . '{"condition": "healthy", "health_score": 88.5, "notes": "..."}';
 
-            $response = Http::timeout(15)->post("https://generativelanguage.googleapis.com/v1beta/models/{$this->model}:generateContent?key={$this->apiKey}", [
+            $response = Http::timeout(60)->post("https://generativelanguage.googleapis.com/v1beta/models/{$this->model}:generateContent?key={$this->apiKey}", [
                 'contents' => [[
                     'parts' => [
                         ['text' => $prompt],
@@ -70,6 +70,8 @@ class GeminiService
                         'notes' => (string) $parsed['notes'],
                     ];
                 }
+            } else {
+                Log::error('Gemini API Failed with Status: ' . $response->status() . ' Body: ' . $response->body());
             }
         } catch (\Throwable $e) {
             Log::error('Gemini Vision AI Error: ' . $e->getMessage());
@@ -101,7 +103,7 @@ class GeminiService
                 . "Instruksi:\n"
                 . "Buatkan narasi evaluasi profesional 2-3 paragraf dalam Bahasa Indonesia yang lugas, terstruktur, dan objektif. Terdiri atas: 1) Gambaran umum progres penanaman, 2) Evaluasi tingkat keberhasilan tumbuh (survival rate) dan faktor lingkungan pendukung, 3) Rekomendasi tindakan perawatan keberlanjutan untuk audit KLHK.";
 
-            $response = Http::timeout(15)->post("https://generativelanguage.googleapis.com/v1beta/models/{$this->model}:generateContent?key={$this->apiKey}", [
+            $response = Http::timeout(60)->post("https://generativelanguage.googleapis.com/v1beta/models/{$this->model}:generateContent?key={$this->apiKey}", [
                 'contents' => [[
                     'parts' => [
                         ['text' => $prompt]

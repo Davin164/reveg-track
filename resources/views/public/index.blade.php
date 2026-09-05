@@ -110,6 +110,11 @@
                 </div>
             @endforeach
         </div>
+        <div class="text-center pt-4">
+            <a href="{{ route('public.gallery') }}" class="inline-flex items-center justify-center px-6 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-slate-600 text-white font-bold text-sm rounded-xl transition">
+                Lihat Seluruh Galeri & Filter &rarr;
+            </a>
+        </div>
     </section>
 
     <!-- Public Complaint Form (#complaint) -->
@@ -126,8 +131,12 @@
             </div>
 
             @if(session('success'))
-                <div class="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-sm text-center">
-                    {{ session('success') }}
+                <div class="p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-center flex flex-col items-center justify-center space-y-3">
+                    <svg class="w-12 h-12 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div>
+                        <p class="font-bold text-lg">{{ session('success') }}</p>
+                        <p class="text-sm mt-1">Laporan Anda akan diproses secara berkala oleh tim. Terima kasih.</p>
+                    </div>
                 </div>
             @endif
 
@@ -159,6 +168,46 @@
                     Kirimkan Pengaduan Warga
                 </button>
             </form>
+        </div>
+    </section>
+
+    <!-- Recent Complaints List -->
+    <section class="max-w-4xl mx-auto px-6 mt-16 space-y-8">
+        <div class="text-center space-y-2">
+            <h2 class="text-2xl md:text-3xl font-extrabold text-white tracking-tight">Daftar Laporan Warga Terbaru</h2>
+            <p class="text-slate-400 text-sm">Transparansi tindak lanjut pelaporan dari warga sekitar area tambang</p>
+        </div>
+
+        <div class="space-y-4">
+            @forelse($publicComplaints as $complaint)
+                <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs text-slate-400 font-medium">{{ $complaint->created_at->diffForHumans() }} &bull; {{ $complaint->site->name }}</span>
+                        @if($complaint->status == 'pending')
+                            <span class="px-2.5 py-1 text-[10px] font-bold rounded-lg bg-amber-500/20 text-amber-400 border border-amber-500/30 uppercase tracking-wide">Menunggu Diproses</span>
+                        @elseif($complaint->status == 'resolved')
+                            <span class="px-2.5 py-1 text-[10px] font-bold rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase tracking-wide">Selesai Ditindaklanjuti</span>
+                        @elseif($complaint->status == 'reviewed')
+                            <span class="px-2.5 py-1 text-[10px] font-bold rounded-lg bg-blue-500/20 text-blue-400 border border-blue-500/30 uppercase tracking-wide">Sedang Ditinjau</span>
+                        @else
+                            <span class="px-2.5 py-1 text-[10px] font-bold rounded-lg bg-red-500/20 text-red-400 border border-red-500/30 uppercase tracking-wide">Ditolak</span>
+                        @endif
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">{{ $complaint->title }}</h3>
+                    <p class="text-sm text-slate-400 leading-relaxed mb-4">{{ $complaint->description }}</p>
+
+                    @if($complaint->response)
+                        <div class="bg-slate-950/50 rounded-xl p-4 border border-slate-800 border-l-2 border-l-emerald-500">
+                            <span class="block text-xs font-bold text-emerald-400 mb-1">Tanggapan Admin PT BA / PAMA:</span>
+                            <p class="text-sm text-slate-300">{{ $complaint->response }}</p>
+                        </div>
+                    @endif
+                </div>
+            @empty
+                <div class="text-center py-8">
+                    <p class="text-slate-500">Belum ada aduan warga terbaru.</p>
+                </div>
+            @endforelse
         </div>
     </section>
 

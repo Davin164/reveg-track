@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\SiteRepository;
+use Illuminate\Support\Facades\DB;
 use Exception;
 
 class SiteService
@@ -40,7 +41,9 @@ class SiteService
     public function createSite(array $data)
     {
         try {
-            return $this->siteRepository->create($data);
+            return DB::transaction(function () use ($data) {
+                return $this->siteRepository->create($data);
+            });
         } catch (Exception $e) {
             throw new Exception("Gagal membuat lokasi baru: " . $e->getMessage());
         }
@@ -49,8 +52,10 @@ class SiteService
     public function updateSite(string $id, array $data)
     {
         try {
-            $site = $this->siteRepository->findById($id);
-            return $this->siteRepository->update($site, $data);
+            return DB::transaction(function () use ($id, $data) {
+                $site = $this->siteRepository->findById($id);
+                return $this->siteRepository->update($site, $data);
+            });
         } catch (Exception $e) {
             throw new Exception("Gagal memperbarui lokasi: " . $e->getMessage());
         }
@@ -59,8 +64,10 @@ class SiteService
     public function deleteSite(string $id)
     {
         try {
-            $site = $this->siteRepository->findById($id);
-            return $this->siteRepository->delete($site);
+            return DB::transaction(function () use ($id) {
+                $site = $this->siteRepository->findById($id);
+                return $this->siteRepository->delete($site);
+            });
         } catch (Exception $e) {
             throw new Exception("Gagal menghapus lokasi: " . $e->getMessage());
         }

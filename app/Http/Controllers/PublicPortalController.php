@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Complaint;
 use App\Models\MonitoringLog;
 use App\Models\Photo;
 use App\Models\PlantingRecord;
@@ -33,13 +34,16 @@ class PublicPortalController extends Controller
             ->take(8)
             ->get();
 
+        $publicComplaints = Complaint::with('site')->latest()->take(5)->get();
+
         return view('public.index', compact(
             'sites',
             'totalHectares',
             'totalSeedlings',
             'sitesCount',
             'avgSurvivalRate',
-            'recentPhotos'
+            'recentPhotos',
+            'publicComplaints'
         ));
     }
 
@@ -64,5 +68,25 @@ class PublicPortalController extends Controller
         ])->findOrFail($id);
 
         return view('public.site_detail', compact('site'));
+    }
+
+    public function gallery(Request $request)
+    {
+        $sites = Site::all();
+        $query = Photo::with(['monitoringLog.plantingRecord.species', 'monitoringLog.plantingRecord.plot.site']);
+
+        if ($request->filled('site_id')) {
+            $query->whereHas('monitoringLog.plantingRecord.plot', function ($q) use ($request) {
+                $q->where('site_id', $request->site_id);
+            });
+        }
+
+        if ($request->filled('date')) {
+            $query->whereDate('taken_at', $request->date);
+        }
+
+        $photos = $query->latest('taken_at')->paginate(12)->withQueryString();
+
+        return view('public.gallery', compact('photos', 'sites'));
     }
 }
