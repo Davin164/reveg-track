@@ -7,7 +7,7 @@ RUN composer install --no-dev --no-interaction --prefer-dist --ignore-platform-r
 # Stage 2: Node dependencies & build
 FROM node:20-alpine AS node
 WORKDIR /app
-COPY package.json package-lock.json vite.config.js ./
+COPY package.json package-lock.json* vite.config.js ./
 RUN npm install
 COPY resources/ resources/
 COPY public/ public/
